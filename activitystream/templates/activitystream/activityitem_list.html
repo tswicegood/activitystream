@@ -1,8 +1,8 @@
 <dl>
 {% for item in object_list %}
-    <dt>{{ item.title }}</dt>
+    <dt>{{ item.title|safe }}</dt>
     <dd>
-        {{ item.description }}
+        {{ item.description|safe }}
 
         <a href="{{ item.source_url }}">Original Post</a>
     </dd>
