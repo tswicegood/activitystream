@@ -10,16 +10,15 @@ class Command(BaseCommand):
         # TODO: do this via a conditional GET
         types = ActivityType.objects.all()
         regex = re.compile('&[^;]+;|\(.*\)')
-        for type in types:
-            d = feedparser.parse(type.source_url)
+        for activity_type in types:
+            d = feedparser.parse(activity_type.source_url)
             for entry in d['entries']:
                 try:
                     ActivityItem.objects.get(uuid=entry.id)
                 except ActivityItem.DoesNotExist:
-                    
                     item = ActivityItem.objects.create(
                         uuid=entry.id,
-                        type=type,
+                        type=activity_type,
                         title=entry.title,
                         description=getattr(entry, "summary", ''),
                         slug=regex.sub('', entry.title).strip().replace(' ', '-'),
