@@ -26,3 +26,21 @@ class ActivityItem(models.Model):
 
     def __unicode__(self):
         return "%s: %s" % (self.type, self.title)
+
+class LinkManager(models.Manager):
+    def images(self):
+        # TODO, this isn't going to perform well
+        return self.filter(type__startswith="image/")
+
+    def image(self):
+        return self.images()[0]
+
+class Link(models.Model):
+    href = models.CharField(max_length=250)
+    rel = models.CharField(max_length=250)
+    type = models.CharField(max_length=100)
+
+    parent = models.ForeignKey(ActivityItem, related_name="links")
+
+    objects = LinkManager()
+

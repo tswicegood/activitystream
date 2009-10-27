@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from activitystream.models import ActivityType, ActivityItem
+from activitystream.models import ActivityType, ActivityItem, Link
 import datetime
 import feedparser
 import re
@@ -25,4 +25,11 @@ class Command(BaseCommand):
                         slug=regex.sub('', entry.title).strip().replace(' ', '-'),
                         published=datetime.datetime(*entry.published_parsed[:7])
                     )
+                    for link in entry['links']:
+                        Link.objects.create(
+                            parent=item,
+                            href=link['href'],
+                            rel=link['rel'],
+                            type=link['type']
+                        )
 
