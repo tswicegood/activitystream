@@ -18,6 +18,7 @@ class Command(BaseCommand):
                 except ActivityItem.DoesNotExist:
                     item = ActivityItem.objects.create(
                         uuid=entry.id,
+                        source_url=entry.link,
                         type=activity_type,
                         title=entry.title,
                         description=getattr(entry, "summary", ''),

@@ -14,6 +14,7 @@ class ActivityType(models.Model):
 
 class ActivityItem(models.Model):
     uuid = models.CharField(max_length = 255)
+    source_url = models.URLField()
     slug = models.SlugField()
     title = models.CharField(max_length = 255)
     description = models.TextField()
