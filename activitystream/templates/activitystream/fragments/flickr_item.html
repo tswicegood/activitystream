@@ -1,0 +1,12 @@
+<dt>{{ item.title|safe }}</dt>
+<dd>
+    <img src="{{ item.links.image.href }}" />
+
+    <a href="{{ item.source_url }}">Original Post</a>
+
+    <p class="metadata">
+        Originally posted on {{ item.type }} at {{ item.published|date }}
+    </p>
+</dd>
+
+
