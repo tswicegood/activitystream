@@ -1,3 +1,7 @@
+{% extends "base.html" %}
+
+{% block content %}
+
 <dl>
 {% for item in object_list %}
     <dt>{{ item.title|safe }}</dt>
@@ -8,4 +12,6 @@
     </dd>
 {% endfor %}
 </ul>
+
+{% endblock %}
 
