@@ -10,6 +10,7 @@ urlpatterns = patterns(
     '',
     (r'^admin/(.*)', admin.site.root),
     (r'^accounts/login/$', 'django.contrib.auth.views.login'),
+    (r'^stream/', include('activitystream.urls')),
 )
 
 if settings.DEBUG:

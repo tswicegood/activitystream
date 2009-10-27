@@ -1,0 +1,11 @@
+<dl>
+{% for item in object_list %}
+    <dt>{{ item.title }}</dt>
+    <dd>
+        {{ item.description }}
+
+        <a href="{{ item.source_url }}">Original Post</a>
+    </dd>
+{% endfor %}
+</ul>
+
