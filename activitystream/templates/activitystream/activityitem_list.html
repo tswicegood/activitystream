@@ -1,19 +1,11 @@
 {% extends "base.html" %}
+{% load activitystream_extras %}
 
 {% block content %}
 
 <dl>
 {% for item in object_list %}
-    <dt>{{ item.title|safe }}</dt>
-    <dd>
-        {{ item.description|safe }}
-
-        <a href="{{ item.source_url }}">Original Post</a>
-
-        <p class="metadata">
-            Originally posted on {{ item.type }} at {{ item.published|date }}
-        </p>
-    </dd>
+    {% display_activity item %}
 {% endfor %}
 </dl>
 
