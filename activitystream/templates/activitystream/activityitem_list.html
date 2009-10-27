@@ -9,6 +9,10 @@
         {{ item.description|safe }}
 
         <a href="{{ item.source_url }}">Original Post</a>
+
+        <p class="metadata">
+            Originally posted on {{ item.type }} at {{ item.published|date }}
+        </p>
     </dd>
 {% endfor %}
 </dl>
