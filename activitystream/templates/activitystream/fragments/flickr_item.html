@@ -1,3 +1,7 @@
+{% load activitystream_extras %}
+{% load cache %}
+
+{% cache 600 flickr item.uuid %}
 <dt>{{ item.title|safe }}</dt>
 <dd>
     <img src="{{ item.uuid|flickrify }}" />
@@ -8,5 +12,5 @@
         Originally posted on {{ item.type }} at {{ item.published|date }}
     </p>
 </dd>
-
+{% endcache %}
 
