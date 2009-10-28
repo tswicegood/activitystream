@@ -1,7 +1,39 @@
 from django import template
+from django.template.defaultfilters import stringfilter
 from django.template.loader import render_to_string
+from dolt import Dolt
 
 register = template.Library()
+
+class Flickr(Dolt):
+    # TODO: Move this to where it belongs... definitely doesn't belong here.
+    def __init__(self, api_key, *args, **kwargs):
+        super(self.__class__, self).__init__(*args, **kwargs)
+        self._api_key = api_key
+        self._api_url = "http://api.flickr.com"
+        self._url_template = "%(domain)s/services/rest/?format=json&method=%(generated_url)s"
+        self._stack_collapser = self._collapse_stack
+        self._params_template = "&%s"
+
+    def _collapse_stack(self, *args, **kwargs):
+        self._attribute_stack[0:0] = "flickr",
+        return ".".join(self._attribute_stack)
+
+    def get_url(self):
+        url = super(self.__class__, self).get_url()
+        return url + "&api_key=%s" % self._api_key
+
+    def _handle_response(self, response, data):
+        return super(self.__class__, self)._handle_response(response, data[14:-1])
+
+
+@register.filter("flickrify")
+@stringfilter
+def do_flickrify(uuid):
+    photo_id = uuid.split("/")[-1]
+    flickr = Flickr("00a842ef9a3ea1267814b39ff8dd908b")
+    response = flickr.photos.getSizes(photo_id=photo_id)
+    return response['sizes']['size'][0]['source']
 
 class ActivityStreamItemNode(template.Node):
     def __init__(self, item_to_be_rendered):
