@@ -9,7 +9,7 @@ Usage
 
 ### Vimeo
 Vimeo's default item rendering (located in
-activitystream/fragments/vimeo_item.html) adds a the `embeddable` CSS class to
+activitystream/fragments/vimeo_item.html) adds a the `oembeddable` CSS class to
 the link for Vimeo objects.  You can use this to hook up inline viewing, as is
 done in the default project.
 
