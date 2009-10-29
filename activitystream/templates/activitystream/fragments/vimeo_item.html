@@ -1,0 +1,13 @@
+{% load activitystream_extras %}
+<dt>{{ item.title|safe }}</dt>
+<dd>
+    {{ item|inline_vimeo_player|safe }}
+
+    <a href="{{ item.source_url }}">Original Post</a>
+
+    <p class="metadata">
+        Originally posted on {{ item.type }} at {{ item.published|date }}
+    </p>
+</dd>
+
+

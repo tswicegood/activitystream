@@ -35,6 +35,10 @@ def do_flickrify(uuid):
     response = flickr.photos.getSizes(photo_id=photo_id)
     return response['sizes']['size'][0]['source']
 
+@register.filter("inline_vimeo_player")
+def do_inline_vimeo_player(item):
+    return item.description.replace('<a href', '<a class="oembeddable" href', 1)
+
 class ActivityStreamItemNode(template.Node):
     def __init__(self, item_to_be_rendered):
         self.item_to_be_rendered = template.Variable(item_to_be_rendered)
