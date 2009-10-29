@@ -23,6 +23,21 @@
         </div>
     </div>
 
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+<script type="text/javascript" src="http://static.water.org/js/jquery.oembed.js"></script>
+<script type="text/javascript" src="http://static.water.org/js/jquery.bgiframe.js"></script>
+<script type="text/javascript" src="http://static.water.org/js/jquery.dimensions.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function() {
+    $('.oembeddable').click(function() {
+        console.log("sup?");
+        $(this).oembed();
+        return false;
+    });
+});
+
+</script>
 </body>
 </html>
 
