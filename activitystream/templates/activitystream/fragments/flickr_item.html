@@ -6,10 +6,8 @@
 <dd>
     <img src="{{ item.uuid|flickrify }}" />
 
-    <a href="{{ item.source_url }}">Original Post</a>
-
     <p class="metadata">
-        Originally posted on {{ item.type }} at {{ item.published|date }}
+        Originally posted on <a href="{{ item.source_url }}">{{ item.type }}</a> at {{ item.published|date }}
     </p>
 </dd>
 {% endcache %}
