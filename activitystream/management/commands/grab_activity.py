@@ -31,8 +31,8 @@ class Command(BaseCommand):
                         type=activity_type,
                         title=entry.title,
                         description=getattr(entry, "summary", ''),
-                        slug=regex.sub('', entry.title).strip().replace(' ', '-'),
-                        published=datetime.datetime(*published)[:7]
+                        slug=regex.sub('', entry.title).strip().replace(' ', '-')[:50],
+                        published=datetime.datetime(*(published[:7]))
                     )
                     if "links" in entry:
                         [add_extra(item, a) for a in entry["links"]]
