@@ -1,9 +1,10 @@
-<dt>{{ item.title|safe }}</dt>
-<dd>
-    {{ item.description|safe }}
+<li class="activitystream-item default">
+    <h3>{{ item.title|safe }}</h3>
+    <div class="activitystream-item-content">
+        {{ item.description|safe }}
 
-    <p class="metadata">
-        Originally posted on <a href="{{ item.source_url }}">{{ item.type }}</a> at {{ item.published|date }}
-    </p>
-</dd>
-
+        <p class="metadata">
+            Originally posted on <a href="{{ item.source_url }}">{{ item.type }}</a> at {{ item.published|date }}
+        </p>
+    </div>
+</li>

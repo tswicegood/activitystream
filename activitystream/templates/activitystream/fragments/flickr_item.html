@@ -2,13 +2,15 @@
 {% load cache %}
 
 {% cache 600 flickr item.uuid %}
-<dt>{{ item.title|safe }}</dt>
-<dd>
+<li class="activitystream-item image">
+<h3>{{ item.title|safe }}</h3>
+<div class="activitystream-item-content">
     <img src="{{ item.uuid|flickrify }}" />
 
     <p class="metadata">
         Originally posted on <a href="{{ item.source_url }}">{{ item.type }}</a> at {{ item.published|date }}
     </p>
-</dd>
+</div>
+</li>
 {% endcache %}
 

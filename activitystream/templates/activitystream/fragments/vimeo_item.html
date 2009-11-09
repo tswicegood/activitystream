@@ -1,11 +1,13 @@
 {% load activitystream_extras %}
-<dt>{{ item.title|safe }}</dt>
-<dd>
+
+<li class="activitystream-item video">
+<h3>{{ item.title|safe }}</h3>
+<div class="activitystream-item-content">
     {{ item|inline_vimeo_player|safe }}
 
     <p class="metadata">
         Originally posted on <a href="{{ item.source_url }}">{{ item.type }}</a> at {{ item.published|date }}
     </p>
-</dd>
-
+</li>
+</div>
 
