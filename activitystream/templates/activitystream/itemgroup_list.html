@@ -1,0 +1,21 @@
+{% extends "activitystream/base.html" %}
+{% load activitystream_extras %}
+
+{% block content %}
+
+
+<ul>
+    {% for group in object_list %}
+    <li>
+        <h1>{{ group.pk }}</h1>
+        {{ group.started_on|date }}
+        <ul>
+            {% for item in group.items.all %}
+                {% display_activity item %}
+            {% endfor %}
+        </ul>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
+
