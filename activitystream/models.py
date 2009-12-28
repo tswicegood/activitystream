@@ -8,9 +8,16 @@ class ActivityType(models.Model):
     name = models.CharField(max_length = 50)
     source_url = models.URLField()
     avatar = models.ForeignKey(Avatar)
-
+    is_collapsible = models.BooleanField(db_index=True)
     def __unicode__(self):
         return self.name
+
+class ItemGroup(models.Model):
+    items = models.ManyToManyField('ActivityItem', related_name='collapsed_into')
+    started_on = models.DateTimeField()
+    last_modified = models.DateTimeField()
+    class Meta:
+        ordering = ['-last_modified']
 
 class ActivityItem(models.Model):
     uuid = models.CharField(max_length = 255)
