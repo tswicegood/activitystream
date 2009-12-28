@@ -1,9 +1,10 @@
 from django.core.management.base import BaseCommand
 from activitystream.models import ActivityType, ActivityItem, Link
+from activitystream.collapser import Collapser
+
 import datetime
 import feedparser
 import re
-
 def add_extra(parent, data):
     return Link.objects.create(
         parent=parent,
@@ -18,6 +19,7 @@ class Command(BaseCommand):
         # TODO: do this via a conditional GET
         types = ActivityType.objects.all()
         regex = re.compile('&[^;]+;|\(.*\)')
+        collapser = Collapser()
         for activity_type in types:
             d = feedparser.parse(activity_type.source_url)
             for entry in d['entries']:
@@ -38,4 +40,4 @@ class Command(BaseCommand):
                         [add_extra(item, a) for a in entry["links"]]
                     if "enclosures" in entry:
                         [add_extra(item, a) for a in entry["enclosures"]]
-
+                    item.collapse(collapser)
