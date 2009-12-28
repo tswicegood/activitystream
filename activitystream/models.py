@@ -34,6 +34,9 @@ class ActivityItem(models.Model):
     def __unicode__(self):
         return "%s: %s" % (self.type, self.title)
 
+    def collapse(self, collapser):
+        collapser.attempt_collapse(self)
+
 class LinkManager(models.Manager):
     def images(self):
         # TODO, this isn't going to perform well
