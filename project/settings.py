@@ -65,5 +65,5 @@ TEMPLATE_DIRS = (
 
 # TODO: add local_settings.py check
 COLLAPSE_BACKENDS = (
-    'activitystream.collapser.TypeAndTimeBasedStrategy',
+    'activitystream.backends.TypeAndTimeBasedBackend',
 )
