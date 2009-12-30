@@ -160,7 +160,9 @@ class AbstractCollapsingTest(TestCase):
         cmock = CollapserMock()
         [cmock.attempt_collapse(i) for i in group_these_by_type]
 
-        self.assertEqual(groups.keys(), [int, str, object, list, float, tuple])
+        groups_keys = groups.keys()
+        groups_keys.sort()
+        self.assertEqual(groups_keys, [float, int, list, str, tuple, object])
         for key, items in groups.iteritems():
             for item in items:
                 self.assertEqual(key, item.__class__)
