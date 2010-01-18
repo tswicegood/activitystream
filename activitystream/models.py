@@ -3,6 +3,9 @@ from django.db import models
 class Avatar(models.Model):
     url = models.URLField()
 
+    def __unicode__(self):
+        return self.url
+
 class ActivityType(models.Model):
     slug = models.SlugField()
     name = models.CharField(max_length = 50)
