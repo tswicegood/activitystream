@@ -1,4 +1,6 @@
 from django import template
+from django.conf import settings
+from django.core.cache import cache
 from django.template.defaultfilters import stringfilter
 from django.template.loader import render_to_string
 from dolt import Dolt
@@ -29,9 +31,19 @@ class Flickr(Dolt):
 
 @register.filter("flickrify")
 @stringfilter
-def do_flickrify(uuid):
+def do_flickrify(uuid, force_refresh=False):
+    cache_key = "do_flickrify:%s" % uuid
+    result = cache.get(cache_key)
+    if not result or force_refresh:
+        result = do_uncached_flickrify(uuid)
+        cache.set(cache_key, result, 600)
+    return result
+
+@register.filter('uncached_flickrify')
+@stringfilter
+def do_uncached_flickrify(uuid):
     photo_id = uuid.split("/")[-1]
-    flickr = Flickr("00a842ef9a3ea1267814b39ff8dd908b")
+    flickr = Flickr(settings.ACTIVITYSTREAM['FLICKR_API_KEY'])
     response = flickr.photos.getSizes(photo_id=photo_id)
     return response['sizes']['size'][0]['source']
 
