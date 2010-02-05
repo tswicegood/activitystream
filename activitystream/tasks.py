@@ -1,4 +1,5 @@
 from activitystream.templatetags.activitystream_extras import do_flickrify
+from activitystream.management.commands.grab_activity import Command as ActivityGrabber
 from activitystream.models import ActivityType, ActivityItem
 from celery.decorators import task
 from celery.registry import tasks
@@ -29,4 +30,13 @@ class UpdateFlickrPhotos(PeriodicTask):
 
         logger.info("Updating Flickr cache for %d photos" % queryset.count())
         update_flickr_queryset.delay(queryset)
+
+class UpdateActivityStream(PeriodicTask):
+    run_every = timedelta(minutes=10)
+    def run(self, **kwargs):
+        logger = self.get_logger(**kwargs)
+        logger.info("UpdateActivityStream started")
+
+        grabber = ActivityGrabber()
+        grabber.handle()
 
