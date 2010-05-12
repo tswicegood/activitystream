@@ -49,7 +49,7 @@ class ActivityStreamItemNode(template.Node):
             t = template.loader.get_template("activitystream/fragments/%s_item.html" % item.type.name)
         except template.TemplateDoesNotExist:
             t = template.loader.get_template("activitystream/fragments/default_item.html")
-        return t.render(template.Context({"item": item,}))
+        return t.render(template.Context({'user':context.get('user', None), "item": item,}))
 
 @register.tag('display_activity')
 def do_display_activity(parser, token):
